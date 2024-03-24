@@ -15,4 +15,8 @@ apt install apksigner -y
 echo "Installing zipalign ..."
 apt install zipalign -y
 
-echo "Done ..."
+echo "Installing streamlit ..."
+sudo apt-get install python3-pip -y
+pip3 install streamlit
+
+echo "Done"
